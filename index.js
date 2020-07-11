@@ -9,8 +9,8 @@ const mit    = "Licensed under the [MIT License](https://spdx.org/licenses/MIT.h
 const isc    = "Licensed under the [ISC License](https://spdx.org/licenses/ISC.html).";
 
 // Contributors
-const yesContributors = "If you would like to contribute to this project, please follow the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/) guidelines."
-const noContributors  = "This project is not accepting any contributions at this time."
+const yesContributors = "If you are contributing to this project, please follow the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/) guidelines."
+const noContributors  = "This project is not accepting any contributors at this time."
 
 
 // GitHub Username
@@ -32,7 +32,7 @@ const questions = [
     {
         type: "input",
         name: "description",
-        message: "What is the description of your project."
+        message: "What is the description?"
     },
     {
         type: "input",
@@ -47,7 +47,7 @@ const questions = [
     {
         type: "input",
         name: "tests",
-        message: "How would you run tests on this project?"
+        message: "How would you run test?"
     },
     {
         type: "list",
@@ -87,13 +87,11 @@ async function combinedData() {
         });
 
         responses.username = username;
-        responses.image = gitHubImg;
+        responses.image = gitHubImage;
         responses.email = gitHubEmail;
 
         // Licenses
-        if(responses.license === "Apache License 2.0"){
-            responses.license = apache;
-        } else if(responses.license === "GNU GPLv3"){
+        if(responses.license === "GNU GPLv3"){
             responses.license = gnu;
         } else if(responses.license === "MIT"){
             responses.license = mit;
