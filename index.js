@@ -1,6 +1,6 @@
 const inquirer          = require("inquirer");
 const fs                = require("fs");
-const generateMarkdown  = require("./utils/generateMarkdown");
+const generateMarkdown  = require("./utils/generateMD");
 const api               = require("./utils/api");
 
 // Licenses 
@@ -109,9 +109,6 @@ async function allData() {
         } else {
             responses.licenseDescrip = "This project is currently not licensed."
         }
-
-        // Contributors
-       
 
         // WriteFile
         writeToFile("readmeGenerated.md", generateMarkdown(responses));
