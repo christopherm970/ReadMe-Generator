@@ -8,11 +8,6 @@ const gnu    = "Licensed under the [GNU GPLv3 License](https://spdx.org/licenses
 const mit    = "Licensed under the [MIT License](https://spdx.org/licenses/MIT.html).";
 const isc    = "Licensed under the [ISC License](https://spdx.org/licenses/ISC.html).";
 
-// Contributors
-const yesContributors = "If you are contributing to this project, please follow the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/) guidelines."
-const noContributors  = "This project is not accepting any contributors at this time."
-
-
 // GitHub Username
 const gitHubQuestion = [
     {
@@ -62,18 +57,33 @@ const questions = [
     },
     {
         type: "list",
-        name: "contributors",
+        name: "contributorQ",
         message: "Would you like other developers to contribute to your project?",
         choices: [
             "Yes",
-            "No"
-        ]
+            "No",
+        ],
+       
+    },
+    // Add contributors name question.
+    {
+        type: "input",
+        name: "contribNames",
+        message: "What are the contributors names?", 
+        when: response => {
+            return (response.contributorQ === "Yes")
+        }
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the contact email to be used?"
     }
 ];
 
 
 // 
-async function combinedData() {
+async function allData() {
     try {
         // Github
         await inquirer.prompt(gitHubQuestion).then(function(response){
@@ -88,25 +98,20 @@ async function combinedData() {
 
         responses.username = username;
         responses.image = gitHubImage;
-        responses.email = gitHubEmail;
 
         // Licenses
         if(responses.license === "GNU GPLv3"){
-            responses.license = gnu;
+            responses.licenseDescrip = gnu;
         } else if(responses.license === "MIT"){
-            responses.license = mit;
+            responses.licenseDescrip = mit;
         } else if(responses.license === "ISC"){
-            responses.license = isc;
+            responses.licenseDescrip = isc;
         } else {
-            responses.license = "This project is currently not licensed."
+            responses.licenseDescrip = "This project is currently not licensed."
         }
 
         // Contributors
-        if(responses.contributors === "Yes"){
-            responses.contributors = yesContributors;
-        } else {
-            responses.contributors = noContributors;
-        }
+       
 
         // WriteFile
         writeToFile("readmeGenerated.md", generateMarkdown(responses));
@@ -117,7 +122,7 @@ async function combinedData() {
 }
 
 
-combinedData();
+allData();
 
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, function(err){

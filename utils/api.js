@@ -14,12 +14,6 @@ const api = {
       .then(function(res){
         return gitHubImage = res.data.avatar_url; 
       });
-
-    await axios
-      .get(queryUrl, token)
-      .then(function(res){
-        return gitHubEmail = res.data.email; 
-      });
   }
 };
 
