@@ -86,12 +86,14 @@ const questions = [
 async function allData() {
     try {
         // Github
-        await inquirer.prompt(gitHubQuestion).then(function(response){
-            return username = response.username;
-        });
+        const { username } = await inquirer.prompt(gitHubQuestion)
+        // await inquirer.prompt(gitHubQuestion).then(function(response){
+        //     return username = response.username;
+        // });
         
         await api.getUser(username);
 
+        // const { responses } = await inquirer.prompt(responses)
         await inquirer.prompt(questions).then(function(response){
             return responses = response;
         });
