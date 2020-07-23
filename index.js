@@ -1,12 +1,12 @@
-const inquirer          = require("inquirer");
-const fs                = require("fs");
-const generateMarkdown  = require("./utils/generateMD");
-const api               = require("./utils/api");
+const inquirer = require("inquirer");
+const fs = require("fs");
+const generateMarkdown = require("./utils/generateMD");
+const api = require("./utils/api");
 
 // Licenses 
-const gnu    = "Licensed under the [GNU GPLv3 License](https://spdx.org/licenses/GPL-3.0-or-later.html).";
-const mit    = "Licensed under the [MIT License](https://spdx.org/licenses/MIT.html).";
-const isc    = "Licensed under the [ISC License](https://spdx.org/licenses/ISC.html).";
+const gnu = "Licensed under the [GNU GPLv3 License](https://spdx.org/licenses/GPL-3.0-or-later.html).";
+const mit = "Licensed under the [MIT License](https://spdx.org/licenses/MIT.html).";
+const isc = "Licensed under the [ISC License](https://spdx.org/licenses/ISC.html).";
 
 // GitHub Username
 const gitHubQuestion = [
@@ -87,13 +87,9 @@ async function allData() {
     try {
         // Github
         const { username } = await inquirer.prompt(gitHubQuestion)
-        // await inquirer.prompt(gitHubQuestion).then(function(response){
-        //     return username = response.username;
-        // });
         
         await api.getUser(username);
 
-        // const { responses } = await inquirer.prompt(responses)
         await inquirer.prompt(questions).then(function(response){
             return responses = response;
         });
